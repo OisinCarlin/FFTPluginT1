@@ -165,12 +165,25 @@ void FFTPluginT1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         }
         sample *= chInv;
         fft.pushSampleIntoFifo(sample);
+        
+        /*
         osc.process(sample);
         for(auto ch = 0; ch < buffer.getNumChannels(); ++ch) {
             auto* channelData = buffer.getWritePointer(ch, s);
             *channelData = osc.getWave(osc.WFSqr);
         }
+        */
     }
+    
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        auto* channelData = buffer.getWritePointer (channel);
+
+        // ..do something to the data...
+    }
+
+    
+    
         
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
