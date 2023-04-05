@@ -33,6 +33,8 @@ public:
         
         updateFundamentalButton.setBounds(getWidth() / 6, getHeight() / 4 * 3, 100, 50);
         
+//        pitchLetter.setBounds (getWidth() / 8, 130, getWidth() - 210, 20);
+        
     }
     //=========== ADDED =======================
     ;
@@ -47,6 +49,8 @@ private:
     juce::Label inputText;
     juce::Label uppercaseLabel;
     juce::Label uppercaseText;
+    
+//    juce::Label pitchLetter;
     
     juce::TextButton updateFundamentalButton {"Update Fundamental"};
     

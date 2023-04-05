@@ -33,7 +33,7 @@ FFTPluginT1AudioProcessorEditor::FFTPluginT1AudioProcessorEditor (FFTPluginT1Aud
 //    inputLabel.setJustificationType (juce::Justification::right);
 
     addAndMakeVisible (uppercaseLabel);
-    uppercaseLabel.setText ("Fundamental Frequency:", juce::dontSendNotification);
+    uppercaseLabel.setText ("Fundamental Frequency (Hz):", juce::dontSendNotification);
 //    uppercaseLabel.attachToComponent (&uppercaseText, true);
     uppercaseLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
     uppercaseLabel.setJustificationType (juce::Justification::left);
@@ -43,6 +43,12 @@ FFTPluginT1AudioProcessorEditor::FFTPluginT1AudioProcessorEditor (FFTPluginT1Aud
 //    uppercaseLabel.setEditable(true);
     uppercaseText.setColour (juce::Label::backgroundColourId, juce::Colours::darkblue);
     uppercaseText.setJustificationType (juce::Justification::left);
+    
+//    addAndMakeVisible (pitchLetter);
+////    uppercaseText.setEditable(true);
+////    uppercaseLabel.setEditable(true);
+//    pitchLetter.setColour (juce::Label::backgroundColourId, juce::Colours::darkblue);
+//    pitchLetter.setJustificationType (juce::Justification::left);
     
     
 //    addAndMakeVisible (inputText);
@@ -55,7 +61,17 @@ FFTPluginT1AudioProcessorEditor::FFTPluginT1AudioProcessorEditor (FFTPluginT1Aud
     
     addAndMakeVisible(updateFundamentalButton);
     updateFundamentalButton.setClickingTogglesState(true);
-    updateFundamentalButton.onClick = [this] { uppercaseText.setText (std::to_string(audioProcessor.fftValue), juce::dontSendNotification); };
+    updateFundamentalButton.onClick = [this] {
+        uppercaseText.setText (std::to_string(audioProcessor.fftValue),
+                               juce::dontSendNotification);
+        
+    };
+    
+//    updateFundamentalButton.onClick = [this] {
+//        pitchLetter.setText (audioProcessor.pitch,
+//                               juce::dontSendNotification);
+//        
+//    };
     // ================ ADDED ==================================
     
 

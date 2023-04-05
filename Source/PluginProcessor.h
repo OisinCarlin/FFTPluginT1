@@ -93,6 +93,17 @@ public:
         return m_sampleRateSizeMaxInv * index;
     }
     
+//    float fundamentalFreq = this->getFundamentalFrequency();
+//    
+//    juce::String getPitch(){
+//        if (fundamentalFreq < 440){
+//            return "less than A";
+//        } else {
+//            return "greater than A";
+//        }
+//        
+//    }
+    
 private:
     int m_order, m_size, m_size2, m_sizeHalf;
     float m_sizeHalfF, m_sizeDiv, m_sizeMaxInv, m_sizeMaxInvPi; // changed m_sizeMaxDiv to m_sizeMaxInv
@@ -101,6 +112,7 @@ private:
     juce::dsp::FFT m_forwardFFT;
     int m_windowType;
     float m_sampleRate, m_sampleRateSizeMaxInv;
+   
 };
 
 class HDLFFTOsc{
@@ -288,6 +300,7 @@ public:
     
     HDLFFT fft { 12, HDLFFT::SineType }; // fft order, imageWidth, imageHeight, windowType
     float fftValue = fft.getFundamentalFrequency();
+//    juce::String pitch = fft.getPitch();
 private:
     HDLFFTOsc osc;
     //==============================================================================
