@@ -22,31 +22,40 @@ FFTPluginT1AudioProcessorEditor::FFTPluginT1AudioProcessorEditor (FFTPluginT1Aud
     // ================ ADDED ==================================
     addAndMakeVisible (titleLabel);
     titleLabel.setFont (juce::Font (16.0f, juce::Font::bold));
-    titleLabel.setText ("Click in the white box to enter some text...", juce::dontSendNotification);
+    titleLabel.setText ("Tuner", juce::dontSendNotification);
     titleLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     titleLabel.setJustificationType (juce::Justification::centred);
 
-    addAndMakeVisible (inputLabel);
-    inputLabel.setText ("Text input:", juce::dontSendNotification);
-    inputLabel.attachToComponent (&inputText, true);
-    inputLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
-    inputLabel.setJustificationType (juce::Justification::right);
+//    addAndMakeVisible (inputLabel);
+//    inputLabel.setText ("Text input:", juce::dontSendNotification);
+//    inputLabel.attachToComponent (&inputText, true);
+//    inputLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
+//    inputLabel.setJustificationType (juce::Justification::right);
 
     addAndMakeVisible (uppercaseLabel);
-    uppercaseLabel.setText ("Uppercase:", juce::dontSendNotification);
-    uppercaseLabel.attachToComponent (&uppercaseText, true);
+    uppercaseLabel.setText ("Fundamental Frequency:", juce::dontSendNotification);
+//    uppercaseLabel.attachToComponent (&uppercaseText, true);
     uppercaseLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
-    uppercaseLabel.setJustificationType (juce::Justification::right);
+    uppercaseLabel.setJustificationType (juce::Justification::left);
 
     addAndMakeVisible (uppercaseText);
+//    uppercaseText.setEditable(true);
+//    uppercaseLabel.setEditable(true);
     uppercaseText.setColour (juce::Label::backgroundColourId, juce::Colours::darkblue);
+    uppercaseText.setJustificationType (juce::Justification::left);
     
     
-    addAndMakeVisible (inputText);
-    inputText.setEditable (true);
-    inputText.setColour (juce::Label::backgroundColourId, juce::Colours::darkblue);
+//    addAndMakeVisible (inputText);
+//    inputText.setEditable (true);
+//    inputText.setColour (juce::Label::backgroundColourId, juce::Colours::darkblue);
 //    inputText.onTextChange = [this] { uppercaseText.setText (inputText.getText().toUpperCase(), juce::dontSendNotification); };
-    inputText.onTextChange = [this] { uppercaseText.setText (std::to_string(audioProcessor.fftValue), juce::dontSendNotification); };
+    
+//    inputText.onTextChange = [this] { uppercaseText.setText (std::to_string(audioProcessor.fftValue), juce::dontSendNotification); };
+    
+    
+    addAndMakeVisible(updateFundamentalButton);
+    updateFundamentalButton.setClickingTogglesState(true);
+    updateFundamentalButton.onClick = [this] { uppercaseText.setText (std::to_string(audioProcessor.fftValue), juce::dontSendNotification); };
     // ================ ADDED ==================================
     
 
@@ -67,7 +76,7 @@ void FFTPluginT1AudioProcessorEditor::paint (juce::Graphics& g)
     
     
 //    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+//    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
 
 }
 

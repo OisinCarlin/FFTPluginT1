@@ -26,8 +26,13 @@ public:
     //=========== ADDED =======================
     {
         titleLabel   .setBounds (10,  10, getWidth() - 20,  30);
-        inputText    .setBounds (100, 50, getWidth() - 110, 20);
-        uppercaseText.setBounds (100, 80, getWidth() - 110, 20);
+//        inputText    .setBounds (100, 50, getWidth() - 110, 20);
+        
+        uppercaseLabel    .setBounds (getWidth() / 8, 50, getWidth() - 110, 20);
+        uppercaseText.setBounds (getWidth() / 8, 80, getWidth() - 210, 20);
+        
+        updateFundamentalButton.setBounds(getWidth() / 6, getHeight() / 4 * 3, 100, 50);
+        
     }
     //=========== ADDED =======================
     ;
@@ -42,6 +47,10 @@ private:
     juce::Label inputText;
     juce::Label uppercaseLabel;
     juce::Label uppercaseText;
+    
+    juce::TextButton updateFundamentalButton {"Update Fundamental"};
+    
+//    juce::TextButton
     //=========== ADDED =======================
     
     FFTPluginT1AudioProcessor& audioProcessor;
