@@ -15,6 +15,12 @@
  */
 
 // ================ FFT CONVERSION CLASS ======================================
+
+/*
+   FFT Class - Credit: Florian Mrugalla
+    GitHub: https://github.com/Mrugalla
+    YouTube: https://www.youtube.com/watch?v=7ldQWYjWinU&t=1203s
+ */
 class FFT {
 public:
     enum WindowType {
@@ -104,6 +110,8 @@ private:
     float m_sampleRate, m_sampleRateSizeMaxInv;
     
 };
+
+//==============================================================================
 
 class FFTPluginT1AudioProcessor  : public juce::AudioProcessor
 #if JucePlugin_Enable_ARA
