@@ -1,10 +1,10 @@
 /*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ This file contains the basic framework code for a JUCE plugin editor.
+ 
+ ==============================================================================
+ */
 
 #pragma once
 
@@ -13,55 +13,42 @@
 
 using std::string;
 
-//==============================================================================
-/**
-*/
+
 class FFTPluginT1AudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
     FFTPluginT1AudioProcessorEditor (FFTPluginT1AudioProcessor&);
     ~FFTPluginT1AudioProcessorEditor() override;
-
-    //==============================================================================
+    
     void paint (juce::Graphics&) override;
     void resized() override
-    //=========== ADDED =======================
     {
         titleLabel   .setBounds (10,  10, getWidth() - 20,  30);
-//        inputText    .setBounds (100, 50, getWidth() - 110, 20);
         
-        uppercaseLabel    .setBounds (getWidth() / 8, 50, getWidth() - 110, 20);
-        uppercaseText.setBounds (getWidth() / 8, 80, getWidth() - 210, 20);
+        fundamentalFreqLabel.setBounds (getWidth() / 8, 50, getWidth() - 110, 20);
+        fundamentalFreqText.setBounds (getWidth() / 8, 80, getWidth() - 210, 20);
         
         updateFundamentalButton.setBounds(getWidth() / 6, getHeight() / 4 * 3, 100, 50);
         
         tuningLabel.setBounds(getWidth() / 8, 130, getWidth() - 110, 20);
         pitchLetter.setBounds (getWidth() / 8, 180, getWidth() - 210, 20);
-        
-    }
+    };
     
-
-    
-    
-    //=========== ADDED =======================
-    ;
-
 private:
-
     
-    //=========== ADDED =======================
+    //======================= LABEL DECLARATIONS =======================
     juce::Label titleLabel;
-    juce::Label inputLabel;
-    juce::Label inputText;
-    juce::Label uppercaseLabel;
-    juce::Label uppercaseText;
+    
+    juce::Label fundamentalFreqLabel;
+    juce::Label fundamentalFreqText;
     
     juce::Label pitchLetter;
     juce::Label tuningLabel;
     
-
+    // ======== FUNDAMENTAL FREQ VALUE FOR PITCH NOTE CONVERSION ========
     float freqValue;
     
+    // ============= NOTE 2 FREQUENCIES IN HERTZ ========================
     float c2 = 65.4064;
     float csharp2 = 69.2957;
     float d2 = 73.4162;
@@ -75,6 +62,7 @@ private:
     float asharp2 = 116.5409;
     float b2 = 123.4708;
     
+    // ============= NOTE 2 BOUNDARIES CALCULATIONS ========================
     float c2lowerBoundary = c2 - ((c2 - 61.74) / 2);
     float c2upperBoundary = c2 + ((csharp2 - c2) / 2);
     
@@ -86,7 +74,7 @@ private:
     
     float dsharp2lowerBoundary = dsharp2 - ((dsharp2 - d2) / 2);
     float dsharp2upperBoundary = dsharp2 + ((e2 - dsharp2) / 2);
-
+    
     float e2lowerBoundary = e2 - ((e2 - dsharp2) / 2);
     float e2upperBoundary = e2 + ((f2 - e2) / 2);
     
@@ -111,8 +99,8 @@ private:
     float b2lowerBoundary = b2 - ((b2 - asharp2) / 2);
     float b2upperBoundary = b2 + ((130.8128 - b2) / 2);
     
-    // convert to note0 values
     
+    // ========= CONVERT TO NOTE 0 BOUNDARY VALUES ==================
     float c0lowerBoundary = c2lowerBoundary / 4;
     float c0upperBoundary = c2upperBoundary / 4;
     
@@ -124,7 +112,7 @@ private:
     
     float dsharp0lowerBoundary = dsharp2lowerBoundary / 4;
     float dsharp0upperBoundary = dsharp2upperBoundary / 4;
-
+    
     float e0lowerBoundary = e2lowerBoundary / 4;
     float e0upperBoundary = e2upperBoundary / 4;
     
@@ -133,24 +121,23 @@ private:
     
     float fsharp0lowerBoundary = fsharp2lowerBoundary / 4;
     float fsharp0upperBoundary = fsharp2upperBoundary / 4;
-
+    
     float g0lowerBoundary = g2lowerBoundary / 4;
     float g0upperBoundary = g2upperBoundary / 4;
     
     float gsharp0lowerBoundary = gsharp2lowerBoundary / 4;
     float gsharp0upperBoundary = gsharp2upperBoundary / 4;
-
+    
     float a0lowerBoundary = a2lowerBoundary / 4;
     float a0upperBoundary = a2upperBoundary / 4;
     
     float asharp0lowerBoundary = asharp2lowerBoundary / 4;
     float asharp0upperBoundary = asharp2upperBoundary / 4;
-
+    
     float b0lowerBoundary = b2lowerBoundary / 4;
     float b0upperBoundary = b2upperBoundary / 4;
     
-    // convert to note1 values
-    
+    // ========= CONVERT TO NOTE 1 BOUNDARY VALUES ==================
     float c1lowerBoundary = c2lowerBoundary / 2;
     float c1upperBoundary = c2upperBoundary / 2;
     
@@ -162,7 +149,7 @@ private:
     
     float dsharp1lowerBoundary = dsharp2lowerBoundary / 2;
     float dsharp1upperBoundary = dsharp2upperBoundary / 2;
-
+    
     float e1lowerBoundary = e2lowerBoundary / 2;
     float e1upperBoundary = e2upperBoundary / 2;
     
@@ -171,24 +158,24 @@ private:
     
     float fsharp1lowerBoundary = fsharp2lowerBoundary / 2;
     float fsharp1upperBoundary = fsharp2upperBoundary / 2;
-
+    
     float g1lowerBoundary = g2lowerBoundary / 2;
     float g1upperBoundary = g2upperBoundary / 2;
     
     float gsharp1lowerBoundary = gsharp2lowerBoundary / 2;
     float gsharp1upperBoundary = gsharp2upperBoundary / 2;
-
+    
     float a1lowerBoundary = a2lowerBoundary / 2;
     float a1upperBoundary = a2upperBoundary / 2;
     
     float asharp1lowerBoundary = asharp2lowerBoundary / 2;
     float asharp1upperBoundary = asharp2upperBoundary / 2;
-
+    
     float b1lowerBoundary = b2lowerBoundary / 2;
     float b1upperBoundary = b2upperBoundary / 2;
     
-    // convert to note3 values
     
+    // ========= CONVERT TO NOTE 3 BOUNDARY VALUES ==================
     float c3lowerBoundary = c2lowerBoundary * 2;
     float c3upperBoundary = c2upperBoundary * 2;
     
@@ -200,7 +187,7 @@ private:
     
     float dsharp3lowerBoundary = dsharp2lowerBoundary * 2;
     float dsharp3upperBoundary = dsharp2upperBoundary * 2;
-
+    
     float e3lowerBoundary = e2lowerBoundary * 2;
     float e3upperBoundary = e2upperBoundary * 2;
     
@@ -209,24 +196,24 @@ private:
     
     float fsharp3lowerBoundary = fsharp2lowerBoundary * 2;
     float fsharp3upperBoundary = fsharp2upperBoundary * 2;
-
+    
     float g3lowerBoundary = g2lowerBoundary * 2;
     float g3upperBoundary = g2upperBoundary * 2;
     
     float gsharp3lowerBoundary = gsharp2lowerBoundary * 2;
     float gsharp3upperBoundary = gsharp2upperBoundary * 2;
-
+    
     float a3lowerBoundary = a2lowerBoundary * 2;
     float a3upperBoundary = a2upperBoundary * 2;
     
     float asharp3lowerBoundary = asharp2lowerBoundary * 2;
     float asharp3upperBoundary = asharp2upperBoundary * 2;
-
+    
     float b3lowerBoundary = b2lowerBoundary * 2;
     float b3upperBoundary = b2upperBoundary * 2;
     
-    // convert to note4 values
     
+    // ========= CONVERT TO NOTE 4 BOUNDARY VALUES ==================
     float c4lowerBoundary = c2lowerBoundary * 4;
     float c4upperBoundary = c2upperBoundary * 4;
     
@@ -238,7 +225,7 @@ private:
     
     float dsharp4lowerBoundary = dsharp2lowerBoundary * 4;
     float dsharp4upperBoundary = dsharp2upperBoundary * 4;
-
+    
     float e4lowerBoundary = e2lowerBoundary * 4;
     float e4upperBoundary = e2upperBoundary * 4;
     
@@ -247,24 +234,24 @@ private:
     
     float fsharp4lowerBoundary = fsharp2lowerBoundary * 4;
     float fsharp4upperBoundary = fsharp2upperBoundary * 4;
-
+    
     float g4lowerBoundary = g2lowerBoundary * 4;
     float g4upperBoundary = g2upperBoundary * 4;
     
     float gsharp4lowerBoundary = gsharp2lowerBoundary * 4;
     float gsharp4upperBoundary = gsharp2upperBoundary * 4;
-
+    
     float a4lowerBoundary = a2lowerBoundary * 4;
     float a4upperBoundary = a2upperBoundary * 4;
     
     float asharp4lowerBoundary = asharp2lowerBoundary * 4;
     float asharp4upperBoundary = asharp2upperBoundary * 4;
-
+    
     float b4lowerBoundary = b2lowerBoundary * 4;
     float b4upperBoundary = b2upperBoundary * 4;
     
-    // convert to note5 values
     
+    // ========= CONVERT TO NOTE 5 BOUNDARY VALUES ==================
     float c5lowerBoundary = c2lowerBoundary * 8;
     float c5upperBoundary = c2upperBoundary * 8;
     
@@ -276,7 +263,7 @@ private:
     
     float dsharp5lowerBoundary = dsharp2lowerBoundary * 8;
     float dsharp5upperBoundary = dsharp2upperBoundary * 8;
-
+    
     float e5lowerBoundary = e2lowerBoundary * 8;
     float e5upperBoundary = e2upperBoundary * 8;
     
@@ -285,24 +272,24 @@ private:
     
     float fsharp5lowerBoundary = fsharp2lowerBoundary * 8;
     float fsharp5upperBoundary = fsharp2upperBoundary * 8;
-
+    
     float g5lowerBoundary = g2lowerBoundary * 8;
     float g5upperBoundary = g2upperBoundary * 8;
     
     float gsharp5lowerBoundary = gsharp2lowerBoundary * 8;
     float gsharp5upperBoundary = gsharp2upperBoundary * 8;
-
+    
     float a5lowerBoundary = a2lowerBoundary * 8;
     float a5upperBoundary = a2upperBoundary * 8;
     
     float asharp5lowerBoundary = asharp2lowerBoundary * 8;
     float asharp5upperBoundary = asharp2upperBoundary * 8;
-
+    
     float b5lowerBoundary = b2lowerBoundary * 8;
     float b5upperBoundary = b2upperBoundary * 8;
     
-    // convert to note6 values
     
+    // ========= CONVERT TO NOTE 6 BOUNDARY VALUES ==================
     float c6lowerBoundary = c2lowerBoundary * 16;
     float c6upperBoundary = c2upperBoundary * 16;
     
@@ -314,7 +301,7 @@ private:
     
     float dsharp6lowerBoundary = dsharp2lowerBoundary * 16;
     float dsharp6upperBoundary = dsharp2upperBoundary * 16;
-
+    
     float e6lowerBoundary = e2lowerBoundary * 16;
     float e6upperBoundary = e2upperBoundary * 16;
     
@@ -323,24 +310,24 @@ private:
     
     float fsharp6lowerBoundary = fsharp2lowerBoundary * 16;
     float fsharp6upperBoundary = fsharp2upperBoundary * 16;
-
+    
     float g6lowerBoundary = g2lowerBoundary * 16;
     float g6upperBoundary = g2upperBoundary * 16;
     
     float gsharp6lowerBoundary = gsharp2lowerBoundary * 16;
     float gsharp6upperBoundary = gsharp2upperBoundary * 16;
-
+    
     float a6lowerBoundary = a2lowerBoundary * 16;
     float a6upperBoundary = a2upperBoundary * 16;
     
     float asharp6lowerBoundary = asharp2lowerBoundary * 16;
     float asharp6upperBoundary = asharp2upperBoundary * 16;
-
+    
     float b6lowerBoundary = b2lowerBoundary * 16;
     float b6upperBoundary = b2upperBoundary * 16;
     
-    // convert to note7 values
     
+    // ========= CONVERT TO NOTE 7 BOUNDARY VALUES ==================
     float c7lowerBoundary = c2lowerBoundary * 32;
     float c7upperBoundary = c2upperBoundary * 32;
     
@@ -352,7 +339,7 @@ private:
     
     float dsharp7lowerBoundary = dsharp2lowerBoundary * 32;
     float dsharp7upperBoundary = dsharp2upperBoundary * 32;
-
+    
     float e7lowerBoundary = e2lowerBoundary * 32;
     float e7upperBoundary = e2upperBoundary * 32;
     
@@ -361,24 +348,24 @@ private:
     
     float fsharp7lowerBoundary = fsharp2lowerBoundary * 32;
     float fsharp7upperBoundary = fsharp2upperBoundary * 32;
-
+    
     float g7lowerBoundary = g2lowerBoundary * 32;
     float g7upperBoundary = g2upperBoundary * 32;
     
     float gsharp7lowerBoundary = gsharp2lowerBoundary * 32;
     float gsharp7upperBoundary = gsharp2upperBoundary * 32;
-
+    
     float a7lowerBoundary = a2lowerBoundary * 32;
     float a7upperBoundary = a2upperBoundary * 32;
     
     float asharp7lowerBoundary = asharp2lowerBoundary * 32;
     float asharp7upperBoundary = asharp2upperBoundary * 32;
-
+    
     float b7lowerBoundary = b2lowerBoundary * 32;
     float b7upperBoundary = b2upperBoundary * 32;
     
-    // convert to note8 values
     
+    // ========= CONVERT TO NOTE 8 BOUNDARY VALUES ==================
     float c8lowerBoundary = c2lowerBoundary * 64;
     float c8upperBoundary = c2upperBoundary * 64;
     
@@ -390,7 +377,7 @@ private:
     
     float dsharp8lowerBoundary = dsharp2lowerBoundary * 64;
     float dsharp8upperBoundary = dsharp2upperBoundary * 64;
-
+    
     float e8lowerBoundary = e2lowerBoundary * 64;
     float e8upperBoundary = e2upperBoundary * 64;
     
@@ -399,24 +386,24 @@ private:
     
     float fsharp8lowerBoundary = fsharp2lowerBoundary * 64;
     float fsharp8upperBoundary = fsharp2upperBoundary * 64;
-
+    
     float g8lowerBoundary = g2lowerBoundary * 64;
     float g8upperBoundary = g2upperBoundary * 64;
     
     float gsharp8lowerBoundary = gsharp2lowerBoundary * 64;
     float gsharp8upperBoundary = gsharp2upperBoundary * 64;
-
+    
     float a8lowerBoundary = a2lowerBoundary * 64;
     float a8upperBoundary = a2upperBoundary * 64;
     
     float asharp8lowerBoundary = asharp2lowerBoundary * 64;
     float asharp8upperBoundary = asharp2upperBoundary * 64;
-
+    
     float b8lowerBoundary = b2lowerBoundary * 64;
     float b8upperBoundary = b2upperBoundary * 64;
     
-    // convert to note9 values
     
+    // ========= CONVERT TO NOTE 9 BOUNDARY VALUES ==================
     float c9lowerBoundary = c2lowerBoundary * 128;
     float c9upperBoundary = c2upperBoundary * 128;
     
@@ -428,7 +415,7 @@ private:
     
     float dsharp9lowerBoundary = dsharp2lowerBoundary * 128;
     float dsharp9upperBoundary = dsharp2upperBoundary * 128;
-
+    
     float e9lowerBoundary = e2lowerBoundary * 128;
     float e9upperBoundary = e2upperBoundary * 128;
     
@@ -437,24 +424,24 @@ private:
     
     float fsharp9lowerBoundary = fsharp2lowerBoundary * 128;
     float fsharp9upperBoundary = fsharp2upperBoundary * 128;
-
+    
     float g9lowerBoundary = g2lowerBoundary * 128;
     float g9upperBoundary = g2upperBoundary * 128;
     
     float gsharp9lowerBoundary = gsharp2lowerBoundary * 128;
     float gsharp9upperBoundary = gsharp2upperBoundary * 128;
-
+    
     float a9lowerBoundary = a2lowerBoundary * 128;
     float a9upperBoundary = a2upperBoundary * 128;
     
     float asharp9lowerBoundary = asharp2lowerBoundary * 128;
     float asharp9upperBoundary = asharp2upperBoundary * 128;
-
+    
     float b9lowerBoundary = b2lowerBoundary * 128;
     float b9upperBoundary = b2upperBoundary * 128;
     
-    // convert to note9 values
     
+    // ========= CONVERT TO NOTE 10 BOUNDARY VALUES ==================
     float c10lowerBoundary = c2lowerBoundary * 256;
     float c10upperBoundary = c2upperBoundary * 256;
     
@@ -466,7 +453,7 @@ private:
     
     float dsharp10lowerBoundary = dsharp2lowerBoundary * 256;
     float dsharp10upperBoundary = dsharp2upperBoundary * 256;
-
+    
     float e10lowerBoundary = e2lowerBoundary * 256;
     float e10upperBoundary = e2upperBoundary * 256;
     
@@ -475,34 +462,30 @@ private:
     
     float fsharp10lowerBoundary = fsharp2lowerBoundary * 256;
     float fsharp10upperBoundary = fsharp2upperBoundary * 256;
-
+    
     float g10lowerBoundary = g2lowerBoundary * 256;
     float g10upperBoundary = g2upperBoundary * 256;
     
     float gsharp10lowerBoundary = gsharp2lowerBoundary * 256;
     float gsharp10upperBoundary = gsharp2upperBoundary * 256;
-
+    
     float a10lowerBoundary = a2lowerBoundary * 256;
     float a10upperBoundary = a2upperBoundary * 256;
     
     float asharp10lowerBoundary = asharp2lowerBoundary * 256;
     float asharp10upperBoundary = asharp2upperBoundary * 256;
-
+    
     float b10lowerBoundary = b2lowerBoundary * 256;
     float b10upperBoundary = b2upperBoundary * 256;
     
     
     
-    
+    // =============== UPDATE BUTTON DECLARATION ==================
     juce::TextButton updateFundamentalButton {"Update"};
-    
-//    juce::TextButton
-    //=========== ADDED =======================
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FFTPluginT1AudioProcessor& audioProcessor;
-   
-
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FFTPluginT1AudioProcessorEditor)
 };
